@@ -1,3 +1,9 @@
+"""
+pyexamples module.
+
+This module contains example scripts for PlotNeuralNet, including U-Net and simple test cases.
+"""
+
 import glob
 import os
 
@@ -11,3 +17,5 @@ from .testSimple import *
 
 # Import specific Python files
 from .unet import *
+
+__all__ = ["testSimple", "unet"]

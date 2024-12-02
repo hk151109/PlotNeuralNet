@@ -1,3 +1,9 @@
+"""
+layers module.
+
+This module contains LaTeX style and initialization files for different neural network layers used in PlotNeuralNet.
+"""
+
 import glob
 import os
 
@@ -12,3 +18,5 @@ ballStyPath = os.path.join(baseDir, "Ball.sty")
 boxStyPath = os.path.join(baseDir, "Box.sty")
 rightBandedBoxStyPath = os.path.join(baseDir, "RightBandedBox.sty")
 initTexPath = os.path.join(baseDir, "init.tex")
+
+__all__ = ["Ball.sty", "Box.sty", "RightBandedBox.sty", "init.tex"]
