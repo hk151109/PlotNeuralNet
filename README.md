@@ -1,102 +1,175 @@
 # PlotNeuralNet
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2526396.svg)](https://doi.org/10.5281/zenodo.2526396)
 
-Latex code for drawing neural networks for reports and presentation. Have a look into examples to see how they are made. Additionally, lets consolidate any improvements that you make and fix any bugs to help more people with this code.
+**PlotNeuralNet** is a Python package that provides tools to generate high-quality neural network architecture diagrams for research papers, presentations, and reports. It leverages LaTeX and Python for seamless integration into scientific workflows.
 
-## Examples
+This package is based on the original **[PlotNeuralNet by HarisIqbal88](https://github.com/HarisIqbal88/PlotNeuralNet)**, with improvements for better usability and a modular package structure.
 
-Following are some network representations:
+---
 
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308846-c2231880-049c-11e9-8763-3daa1024de78.png" width="85%" height="85%"></p>
-<h6 align="center">FCN-8 (<a href="https://www.overleaf.com/read/kkqntfxnvbsk">view on Overleaf</a>)</h6>
+## **Features**
+- Programmatically generate neural network diagrams using Python.
+- Predefined layer types (e.g., Conv, Pool, SoftMax).
+- Easily extendable for custom layer shapes.
+- Pre-built LaTeX templates for popular architectures like AlexNet, FCN, and HED.
+- Fully structured as a Python package for streamlined integration into projects.
 
+---
 
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308873-e2eb6e00-049c-11e9-9587-9da6bdec011b.png" width="85%" height="85%"></p>
-<h6 align="center">FCN-32 (<a href="https://www.overleaf.com/read/wsxpmkqvjnbs">view on Overleaf</a>)</h6>
+## **Getting Started**
 
+### **Installation**
 
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308911-03b3c380-049d-11e9-92d9-ce15669017ad.png" width="85%" height="85%"></p>
-<h6 align="center">Holistically-Nested Edge Detection (<a href="https://www.overleaf.com/read/jxhnkcnwhfxp">view on Overleaf</a>)</h6>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/PlotNeuralNet.git
+   cd PlotNeuralNet
+   ```
 
-## Getting Started
-1. Install the following packages on Ubuntu.
-    * Ubuntu 16.04
-        ```
-        sudo apt-get install texlive-latex-extra
-        ```
+2. Install the package:
+   ```bash
+   pip install .
+   ```
 
-    * Ubuntu 18.04.2
-Base on this [website](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d), please install the following packages.
-        ```
-        sudo apt-get install texlive-latex-base
-        sudo apt-get install texlive-fonts-recommended
-        sudo apt-get install texlive-fonts-extra
-        sudo apt-get install texlive-latex-extra
-        ```
+3. Verify the installation:
+   ```python
+   import PlotNeuralNet
+   print("PlotNeuralNet installed successfully!")
+   ```
 
-    * Windows
-    1. Download and install [MikTeX](https://miktex.org/download).
-    2. Download and install bash runner on Windows, recommends [Git bash](https://git-scm.com/download/win) or Cygwin(https://www.cygwin.com/)
+---
 
-2. Execute the example as followed.
-    ```
-    cd pyexamples/
-    bash ../tikzmake.sh test_simple
-    ```
+## **Usage**
 
-## TODO
+The package is organized to simplify the creation of diagrams. It includes Python modules (`pycore` and `pyexamples`) and LaTeX resources (`layers`).
 
-- [X] Python interface
-- [ ] Add easy legend functionality
-- [ ] Add more layer shapes like TruncatedPyramid, 2DSheet etc
-- [ ] Add examples for RNN and likes.
+### **1. Python Usage**
 
-## Latex usage
-
-See [`examples`](examples) directory for usage.
-
-## Python usage
-
-First, create a new directory and a new Python file:
-
-    $ mkdir my_project
-    $ cd my_project
-    vim my_arch.py
-
-Add the following code to your new file:
+#### **Define an Architecture**
+You can use the Python API to define your architecture programmatically. For example:
 
 ```python
-import sys
-sys.path.append('../')
-from pycore.tikzeng import *
+from PlotNeuralNet.pycore import tikzeng
+from PlotNeuralNet.pycore.blocks import block_2ConvPool, block_Unconv
 
-# defined your arch
+# Define architecture
 arch = [
-    to_head( '..' ),
-    to_cor(),
-    to_begin(),
-    to_Conv("conv1", 512, 64, offset="(0,0,0)", to="(0,0,0)", height=64, depth=64, width=2 ),
-    to_Pool("pool1", offset="(0,0,0)", to="(conv1-east)"),
-    to_Conv("conv2", 128, 64, offset="(1,0,0)", to="(pool1-east)", height=32, depth=32, width=2 ),
-    to_connection( "pool1", "conv2"),
-    to_Pool("pool2", offset="(0,0,0)", to="(conv2-east)", height=28, depth=28, width=1),
-    to_SoftMax("soft1", 10 ,"(3,0,0)", "(pool1-east)", caption="SOFT"  ),
-    to_connection("pool2", "soft1"),
-    to_end()
-    ]
+    tikzeng.to_head('..'),
+    tikzeng.to_cor(),
+    tikzeng.to_begin(),
 
+    # Input image
+    tikzeng.to_input('../examples/fcn8s/cats.jpg'),
+
+    # Encoder
+    *block_2ConvPool(name='b1', botton='input', top='b2', s_filer=256, n_filer=64),
+    *block_2ConvPool(name='b2', botton='b2', top='b3', s_filer=128, n_filer=128),
+
+    # Decoder
+    *block_Unconv(name='b4', botton='b3', top='output', s_filer=64, n_filer=32),
+
+    # Output layer
+    tikzeng.to_ConvSoftMax(name='softmax', offset="(1,0,0)", to="(output-east)", width=1, height=30, depth=30),
+    tikzeng.to_end(),
+]
+
+# Generate the architecture diagram
 def main():
-    namefile = str(sys.argv[0]).split('.')[0]
-    to_generate(arch, namefile + '.tex' )
+    tikzeng.to_generate(arch, "my_architecture.tex")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 
-Now, run the program as follows:
+#### **Compile and View the Diagram**
+Run the Python script:
+```bash
+python my_architecture.py
+```
 
-    bash ../tikzmake.sh my_arch
+Compile the `.tex` file with:
+```bash
+bash ../tikzmake.sh my_architecture
+```
 
+---
 
-## Acknowledgments
-This project is based on [PlotNeuralNet](https://github.com/HarisIqbal88/PlotNeuralNet), originally created by HarisIqbal88 and licensed under the MIT License.
+### **2. LaTeX Usage**
+
+You can directly modify `.tex` files in the `examples` directory, such as `examples/FCN-8` or `examples/HED`. Each `.tex` file demonstrates how to use LaTeX for defining architectures.
+
+To compile a `.tex` file, use:
+```bash
+pdflatex <file>.tex
+```
+
+---
+
+### **3. Access Predefined Resources**
+The package structure includes predefined resources for easy reuse:
+
+#### **LaTeX Resources**
+- Available in the `PlotNeuralNet/layers/` directory.
+- Example LaTeX layer definitions:
+  ```latex
+  \input{layers/Box.sty}
+  ```
+
+#### **Examples**
+- Predefined architectures like FCN, HED, AlexNet are in `PlotNeuralNet/examples/`.
+- Modify these examples to fit your use case.
+
+#### **Python Scripts**
+- Python examples for generating diagrams programmatically are in `PlotNeuralNet/pyexamples/`.
+- Example usage:
+  ```bash
+  python PlotNeuralNet/pyexamples/unet.py
+  ```
+
+---
+
+## **Package Structure**
+
+The package is organized as follows:
+
+```
+PlotNeuralNet/
+├── LICENSE          # License file
+├── MANIFEST.in      # File inclusion rules
+├── README.md        # Documentation
+├── setup.py         # Installation script
+├── PlotNeuralNet/   # Main package directory
+│   ├── __init__.py  # Package initializer
+│   ├── pycore/      # Core Python modules
+│   ├── layers/      # LaTeX resources
+│   ├── examples/    # Predefined architectures in LaTeX
+│   ├── pyexamples/  # Python examples
+├── dist/            # Build artifacts (after running setup.py)
+├── build/           # Temporary build files
+```
+
+---
+
+## **Advanced Features**
+
+1. **Custom Layers**
+   - Extend `pycore.blocks` or create your own block definitions to support custom layers.
+
+2. **Batch Processing**
+   - Use Python scripts to generate multiple architectures programmatically.
+
+3. **Predefined Functions**
+   - `block_2ConvPool` and `block_Unconv` simplify common layer patterns.
+
+---
+
+## **Acknowledgments**
+
+This package is based on the original **[PlotNeuralNet by HarisIqbal88](https://github.com/HarisIqbal88/PlotNeuralNet)** and licensed under the MIT License.
+
+---
+
+## **License**
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
