@@ -17,3 +17,5 @@ pycoreFiles = [
 # Import modules explicitly
 from .blocks import *
 from .tikzeng import *
+
+__all__ = ["blocks", "tikzeng"]
