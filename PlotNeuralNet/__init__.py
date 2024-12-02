@@ -1,3 +1,9 @@
+"""
+PlotNeuralNet package.
+
+A tool for generating neural network architecture diagrams using LaTeX and TikZ.
+"""
+
 from .examples import *
 from .layers import *
 from .pycore import *

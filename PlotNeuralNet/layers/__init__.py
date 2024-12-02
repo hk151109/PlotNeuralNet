@@ -1,3 +1,9 @@
+"""
+layers module.
+
+This module contains LaTeX style and initialization files for different neural network layers used in PlotNeuralNet.
+"""
+
 import glob
 import os
 

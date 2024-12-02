@@ -1,3 +1,9 @@
+"""
+examples module.
+
+This module aggregates all example scripts for generating neural network diagrams using PlotNeuralNet.
+"""
+
 import glob
 import os
 

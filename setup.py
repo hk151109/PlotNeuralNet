@@ -1,3 +1,9 @@
+"""
+Setup script for PlotNeuralNet.
+
+This script configures the PlotNeuralNet package and its dependencies.
+"""
+
 from setuptools import find_packages, setup
 
 setup(

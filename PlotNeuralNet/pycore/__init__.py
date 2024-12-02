@@ -1,3 +1,9 @@
+"""
+pycore module.
+
+This module contains core functionalities for PlotNeuralNet, including TikZ primitives and block definitions.
+"""
+
 import os
 
 # Get the directory of the current file
