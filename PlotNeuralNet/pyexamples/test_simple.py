@@ -1,7 +1,17 @@
 import sys
 
-sys.path.append("../")
-from pycore.tikzeng import *
+from PlotNeuralNet.pycore.tikzeng import (
+    to_begin,
+    to_connection,
+    to_Conv,
+    to_cor,
+    to_end,
+    to_generate,
+    to_head,
+    to_Pool,
+    to_SoftMax,
+    to_Sum,
+)
 
 # defined your arch
 arch = [

@@ -1,8 +1,19 @@
 import sys
 
-sys.path.append("../")
-from pycore.blocks import *
-from pycore.tikzeng import *
+from PlotNeuralNet.pycore.blocks import block_2ConvPool, block_Res, block_Unconv
+from PlotNeuralNet.pycore.tikzeng import (
+    to_begin,
+    to_connection,
+    to_ConvConvRelu,
+    to_ConvSoftMax,
+    to_cor,
+    to_end,
+    to_generate,
+    to_head,
+    to_input,
+    to_Pool,
+    to_skip,
+)
 
 arch = [
     to_head(".."),
