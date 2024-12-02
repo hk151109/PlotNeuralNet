@@ -1,9 +1,13 @@
 Metadata-Version: 2.1
 Name: PlotNeuralNet
 Version: 0.1.0
-Summary: Visualize neural networks.
-Author: Your Name
-Author-email: your.email@example.com
+Summary: Visualize neural networks with a focus on easy-to-use diagrams.
+Home-page: https://github.com/kgruiz/PlotNeuralNet
+Author: Kaden Gruizenga
+Author-email: kgruiz@umich.edu
+License: MIT
+Project-URL: Source, https://github.com/kgruiz/PlotNeuralNet
+Project-URL: Original Work, https://github.com/HarisIqbal88/PlotNeuralNet
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent

@@ -13,9 +13,9 @@ baseDir = os.path.dirname(__file__)
 pyexampleFiles = glob.glob(os.path.join(baseDir, "*.*"))
 pyexampleFiles = [os.path.basename(f) for f in pyexampleFiles]  # Only file names
 
-from .testSimple import *
+from .test_simple import *
 
 # Import specific Python files
 from .unet import *
 
-__all__ = ["testSimple", "unet"]
+__all__ = ["test_simple", "unet"]
