@@ -1,5 +1,5 @@
 """
-layers module.
+Layers module.
 
 This module contains LaTeX style and initialization files for different neural network layers used in PlotNeuralNet.
 """

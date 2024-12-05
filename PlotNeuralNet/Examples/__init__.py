@@ -1,5 +1,5 @@
 """
-examples module.
+Examples module.
 
 This module aggregates all example scripts for generating neural network diagrams using PlotNeuralNet.
 """

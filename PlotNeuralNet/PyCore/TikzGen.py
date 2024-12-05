@@ -15,7 +15,7 @@ def ToHead(projectPath):
     str
         LaTeX code for the document header.
     """
-    pathLayers = os.path.join(projectPath, "layers/").replace("\\", "/")
+    pathLayers = os.path.join(projectPath, "Layers/").replace("\\", "/")
     return rf"""
 \documentclass[border=8pt, multi, tikz]{{standalone}}
 \usepackage{{import}}
@@ -268,7 +268,7 @@ def ToPool(
 """
 
 
-def to_UnPool(
+def ToUnPool(
     name,
     offset="(0,0,0)",
     to="(0,0,0)",
@@ -320,7 +320,7 @@ def to_UnPool(
 """
 
 
-def to_ConvRes(
+def ToConvRes(
     name,
     sFiler=256,
     nFiler=64,
@@ -381,7 +381,7 @@ def to_ConvRes(
 """
 
 
-def to_ConvSoftMax(
+def ToConvSoftMax(
     name,
     sFiler=40,
     offset="(0,0,0)",

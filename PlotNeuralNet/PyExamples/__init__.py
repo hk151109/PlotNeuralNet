@@ -1,5 +1,5 @@
 """
-pyexamples module.
+PyExamples module.
 
 This module contains example scripts for PlotNeuralNet, including U-Net and simple test cases.
 """
