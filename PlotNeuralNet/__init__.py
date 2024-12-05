@@ -1,5 +1,3 @@
-from PlotNeuralNet.Examples import exampleFiles
-from PlotNeuralNet.Layers import layerFiles
 from PlotNeuralNet.PyCore import (
     Block2ConvPool,
     BlockRes,
@@ -22,11 +20,8 @@ from PlotNeuralNet.PyCore import (
     ToSum,
     ToUnPool,
 )
-from PlotNeuralNet.PyExamples import TestSimpleMain, UnetMain
 
 __all__ = [
-    "exampleFiles",
-    "layerFiles",
     "Block2ConvPool",
     "BlockUnconv",
     "BlockRes",
@@ -47,6 +42,4 @@ __all__ = [
     "ToSoftMax",
     "ToSum",
     "ToUnPool",
-    "UnetMain",
-    "TestSimpleMain",
 ]
