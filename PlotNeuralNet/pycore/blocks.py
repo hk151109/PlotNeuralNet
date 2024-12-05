@@ -197,11 +197,11 @@ def block_Res(
         LaTeX code for the residual block.
     """
     lys = []
-    layers = [*["{}_{}".format(name, i) for i in range(num - 1)], top]
-    for name in layers:
+    layers = [f"{name}_{i}" for i in range(num - 1)] + [top]
+    for layer_name in layers:
         ly = [
             to_Conv(
-                name=f"{name}",
+                name=f"{layer_name}",
                 offset=offset,
                 to=f"({botton}-east)",
                 s_filer=str(s_filer),
@@ -210,9 +210,9 @@ def block_Res(
                 height=size[0],
                 depth=size[1],
             ),
-            to_connection(f"{botton}", f"{name}"),
+            to_connection(f"{botton}", f"{layer_name}"),
         ]
-        botton = name
+        botton = layer_name
         lys += ly
 
     lys += [

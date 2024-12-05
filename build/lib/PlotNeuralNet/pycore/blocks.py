@@ -41,25 +41,25 @@ def block_2ConvPool(
     """
     return [
         to_ConvConvRelu(
-            name="ccr_{}".format(name),
-            s_filer=str(s_filer),
-            n_filer=(n_filer, n_filer),
-            offset=offset,
-            to="({}-east)".format(botton),
+            name=rf"ccr_{name}",
+            s_filer=rf"{s_filer}",
+            n_filer=(rf"{n_filer}", rf"{n_filer}"),
+            offset=rf"{offset}",
+            to=rf"({botton}-east)",
             width=(size[2], size[2]),
             height=size[0],
             depth=size[1],
         ),
         to_Pool(
-            name="{}".format(top),
-            offset="(0,0,0)",
-            to="(ccr_{}-east)".format(name),
+            name=rf"{top}",
+            offset=rf"(0,0,0)",
+            to=rf"ccr_{name}-east",
             width=1,
             height=size[0] - int(size[0] / 4),
             depth=size[1] - int(size[0] / 4),
             opacity=opacity,
         ),
-        to_connection("{}".format(botton), "ccr_{}".format(name)),
+        to_connection(rf"{botton}", rf"ccr_{name}"),
     ]
 
 
@@ -102,57 +102,57 @@ def block_Unconv(
     """
     return [
         to_UnPool(
-            name="unpool_{}".format(name),
-            offset=offset,
-            to="({}-east)".format(botton),
+            name=rf"unpool_{name}",
+            offset=rf"{offset}",
+            to=rf"({botton}-east)",
             width=1,
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
         to_ConvRes(
-            name="ccr_res_{}".format(name),
-            offset="(0,0,0)",
-            to="(unpool_{}-east)".format(name),
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            name=rf"ccr_res_{name}",
+            offset=rf"(0,0,0)",
+            to=rf"unpool_{name}-east",
+            s_filer=rf"{s_filer}",
+            n_filer=rf"{n_filer}",
             width=size[2],
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
         to_Conv(
-            name="ccr_{}".format(name),
-            offset="(0,0,0)",
-            to="(ccr_res_{}-east)".format(name),
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            name=rf"ccr_{name}",
+            offset=rf"(0,0,0)",
+            to=rf"ccr_res_{name}-east",
+            s_filer=rf"{s_filer}",
+            n_filer=rf"{n_filer}",
             width=size[2],
             height=size[0],
             depth=size[1],
         ),
         to_ConvRes(
-            name="ccr_res_c_{}".format(name),
-            offset="(0,0,0)",
-            to="(ccr_{}-east)".format(name),
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            name=rf"ccr_res_c_{name}",
+            offset=rf"(0,0,0)",
+            to=rf"ccr_{name}-east",
+            s_filer=rf"{s_filer}",
+            n_filer=rf"{n_filer}",
             width=size[2],
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
         to_Conv(
-            name="{}".format(top),
-            offset="(0,0,0)",
-            to="(ccr_res_c_{}-east)".format(name),
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            name=rf"{top}",
+            offset=rf"(0,0,0)",
+            to=rf"ccr_res_c_{name}-east",
+            s_filer=rf"{s_filer}",
+            n_filer=rf"{n_filer}",
             width=size[2],
             height=size[0],
             depth=size[1],
         ),
-        to_connection("{}".format(botton), "unpool_{}".format(name)),
+        to_connection(rf"{botton}", rf"unpool_{name}"),
     ]
 
 
@@ -197,22 +197,22 @@ def block_Res(
         LaTeX code for the residual block.
     """
     lys = []
-    layers = [*["{}_{}".format(name, i) for i in range(num - 1)], top]
-    for name in layers:
+    layers = [rf"{name}_{i}" for i in range(num - 1)] + [rf"{top}"]
+    for layer_name in layers:
         ly = [
             to_Conv(
-                name="{}".format(name),
-                offset=offset,
-                to="({}-east)".format(botton),
-                s_filer=str(s_filer),
-                n_filer=str(n_filer),
+                name=rf"{layer_name}",
+                offset=rf"{offset}",
+                to=rf"({botton}-east)",
+                s_filer=rf"{s_filer}",
+                n_filer=rf"{n_filer}",
                 width=size[2],
                 height=size[0],
                 depth=size[1],
             ),
-            to_connection("{}".format(botton), "{}".format(name)),
+            to_connection(rf"{botton}", rf"{layer_name}"),
         ]
-        botton = name
+        botton = layer_name
         lys += ly
 
     lys += [

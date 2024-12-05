@@ -16,17 +16,13 @@ def to_head(projectpath):
         LaTeX code for the document header.
     """
     pathlayers = os.path.join(projectpath, "layers/").replace("\\", "/")
-    return (
-        r"""
-\documentclass[border=8pt, multi, tikz]{standalone}
-\usepackage{import}
-\subimport{"""
-        + pathlayers
-        + r"""}{init}
-\usetikzlibrary{positioning}
-\usetikzlibrary{3d} %for including external image
+    return rf"""
+\documentclass[border=8pt, multi, tikz]{{standalone}}
+\usepackage{{import}}
+\subimport{{{pathlayers}}}{{init}}
+\usetikzlibrary{{positioning}}
+\usetikzlibrary{{3d}} %for including external image
 """
-    )
 
 
 def to_cor():
@@ -42,15 +38,15 @@ def to_cor():
     str
         LaTeX code defining color schemes.
     """
-    return r"""
-\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
-\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
-\def\PoolColor{rgb:red,1;black,0.3}
-\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
-\def\FcColor{rgb:blue,5;red,2.5;white,5}
-\def\FcReluColor{rgb:blue,5;red,5;white,4}
-\def\SoftmaxColor{rgb:magenta,5;black,7}
-\def\SumColor{rgb:blue,5;green,15}
+    return rf"""
+\def\ConvColor{{rgb:yellow,5;red,2.5;white,5}}
+\def\ConvReluColor{{rgb:yellow,5;red,5;white,5}}
+\def\PoolColor{{rgb:red,1;black,0.3}}
+\def\UnpoolColor{{rgb:blue,2;green,1;black,0.3}}
+\def\FcColor{{rgb:blue,5;red,2.5;white,5}}
+\def\FcReluColor{{rgb:blue,5;red,5;white,4}}
+\def\SoftmaxColor{{rgb:magenta,5;black,7}}
+\def\SumColor{{rgb:blue,5;green,15}}
 """
 
 
@@ -67,17 +63,17 @@ def to_begin():
     str
         LaTeX code to begin the TikZ environment.
     """
-    return r"""
-\newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
+    return rf"""
+\newcommand{{\copymidarrow}}{{\tikz \draw[-Stealth,line width=0.8mm,draw={{rgb:blue,4;red,1;green,1;black,3}}] (-0.3,0) -- ++(0.3,0);}}
 
-\begin{document}
-\begin{tikzpicture}
-\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
-\tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
+\begin{{document}}
+\begin{{tikzpicture}}
+\tikzstyle{{connection}}=[ultra thick,every node/.style={{sloped,allow upside down}},draw=\edgecolor,opacity=0.7]
+\tikzstyle{{copyconnection}}=[ultra thick,every node/.style={{sloped,allow upside down}},draw={{rgb:blue,4;red,1;green,1;black,3}},opacity=0.7]
 """
 
 
-# layers definition
+# Layers definition
 
 
 def to_input(pathfile, to="(-3,0,0)", width=8, height=8, name="temp"):
@@ -102,26 +98,11 @@ def to_input(pathfile, to="(-3,0,0)", width=8, height=8, name="temp"):
     str
         LaTeX code for the input node.
     """
-    return (
-        r"""
-\node[canvas is zy plane at x=0] ("""
-        + name
-        + """) at """
-        + to
-        + """ {\includegraphics[width="""
-        + str(width)
-        + "cm"
-        + """,height="""
-        + str(height)
-        + "cm"
-        + """]{"""
-        + pathfile
-        + """}};
+    return rf"""
+\node[canvas is zy plane at x=0] ({name}) at {to} {{\includegraphics[width={width}cm,height={height}cm]{{{pathfile}}}}};
 """
-    )
 
 
-# Conv
 def to_Conv(
     name,
     s_filer=256,
@@ -162,44 +143,22 @@ def to_Conv(
     str
         LaTeX code for the convolutional layer.
     """
-    return (
-        r"""
-\pic[shift={"""
-        + offset
-        + """}] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + r""",
-        xlabel={{"""
-        + str(n_filer)
-        + """, }},
-        zlabel="""
-        + str(s_filer)
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
+        xlabel={{ {n_filer}, }},
+        zlabel={s_filer},
         fill=\ConvColor,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
-# Conv,Conv,relu
-# Bottleneck
 def to_ConvConvRelu(
     name,
     s_filer=256,
@@ -240,48 +199,23 @@ def to_ConvConvRelu(
     str
         LaTeX code for the Conv-Conv-ReLU layer.
     """
-    return (
-        r"""
-\pic[shift={ """
-        + offset
-        + """ }] at """
-        + to
-        + """
-    {RightBandedBox={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + """,
-        xlabel={{ """
-        + str(n_filer[0])
-        + """, """
-        + str(n_filer[1])
-        + """ }},
-        zlabel="""
-        + str(s_filer)
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    RightBandedBox={{
+        name={name},
+        caption={caption},
+        xlabel={{ {n_filer[0]}, {n_filer[1]} }},
+        zlabel={s_filer},
         fill=\ConvColor,
         bandfill=\ConvReluColor,
-        height="""
-        + str(height)
-        + """,
-        width={ """
-        + str(width[0])
-        + """ , """
-        + str(width[1])
-        + """ },
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        height={height},
+        width={{ {width[0]}, {width[1]} }},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
-# Pool
 def to_Pool(
     name,
     offset="(0,0,0)",
@@ -319,40 +253,21 @@ def to_Pool(
     str
         LaTeX code for the pooling layer.
     """
-    return (
-        r"""
-\pic[shift={ """
-        + offset
-        + """ }] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + r""",
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
         fill=\PoolColor,
-        opacity="""
-        + str(opacity)
-        + """,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        opacity={opacity},
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
-# unpool4,
 def to_UnPool(
     name,
     offset="(0,0,0)",
@@ -390,37 +305,19 @@ def to_UnPool(
     str
         LaTeX code for the unpooling layer.
     """
-    return (
-        r"""
-\pic[shift={ """
-        + offset
-        + """ }] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + r""",
-        caption="""
-        + caption
-        + r""",
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
         fill=\UnpoolColor,
-        opacity="""
-        + str(opacity)
-        + """,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        opacity={opacity},
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
 def to_ConvRes(
@@ -466,47 +363,24 @@ def to_ConvRes(
     str
         LaTeX code for the convolutional residual layer.
     """
-    return (
-        r"""
-\pic[shift={ """
-        + offset
-        + """ }] at """
-        + to
-        + """
-    {RightBandedBox={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + """,
-        xlabel={{ """
-        + str(n_filer)
-        + """, }},
-        zlabel="""
-        + str(s_filer)
-        + r""",
-        fill={rgb:white,1;black,3},
-        bandfill={rgb:white,1;black,2},
-        opacity="""
-        + str(opacity)
-        + """,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    RightBandedBox={{
+        name={name},
+        caption={caption},
+        xlabel={{ {n_filer}, }},
+        zlabel={s_filer},
+        fill={{rgb:white,1;black,3}},
+        bandfill={{rgb:white,1;black,2}},
+        opacity={opacity},
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
-# ConvSoftMax
 def to_ConvSoftMax(
     name,
     s_filer=40,
@@ -544,40 +418,21 @@ def to_ConvSoftMax(
     str
         LaTeX code for the convolutional softmax layer.
     """
-    return (
-        r"""
-\pic[shift={"""
-        + offset
-        + """}] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + """,
-        zlabel="""
-        + str(s_filer)
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
+        zlabel={s_filer},
         fill=\SoftmaxColor,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
-# SoftMax
 def to_SoftMax(
     name,
     s_filer=10,
@@ -618,41 +473,21 @@ def to_SoftMax(
     str
         LaTeX code for the softmax layer.
     """
-    return (
-        r"""
-\pic[shift={"""
-        + offset
-        + """}] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel="""
-        + str(s_filer)
-        + """,
+        zlabel={s_filer},
         fill=\SoftmaxColor,
-        opacity="""
-        + str(opacity)
-        + """,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        opacity={opacity},
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
 
 
 def to_Sum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
@@ -677,29 +512,17 @@ def to_Sum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
     str
         LaTeX code for the summation node.
     """
-    return (
-        r"""
-\pic[shift={"""
-        + offset
-        + """}] at """
-        + to
-        + """
-    {Ball={
-        name="""
-        + name
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Ball={{
+        name={name},
         fill=\SumColor,
-        opacity="""
-        + str(opacity)
-        + """,
-        radius="""
-        + str(radius)
-        + """,
+        opacity={opacity},
+        radius={radius},
         logo=$+$
-        }
-    };
+    }}
+}};
 """
-    )
 
 
 def to_connection(of, to):
@@ -718,15 +541,9 @@ def to_connection(of, to):
     str
         LaTeX code for the connection.
     """
-    return (
-        r"""
-\draw [connection]  ("""
-        + of
-        + """-east)    -- node {\midarrow} ("""
-        + to
-        + """-west);
+    return rf"""
+\draw [connection]  ({of}-east) -- node {{\midarrow}} ({to}-west);
 """
-    )
 
 
 def to_skip(of, to, pos=1.25):
@@ -747,40 +564,14 @@ def to_skip(of, to, pos=1.25):
     str
         LaTeX code for the skip connection.
     """
-    return (
-        r"""
-\path ("""
-        + of
-        + """-southeast) -- ("""
-        + of
-        + """-northeast) coordinate[pos="""
-        + str(pos)
-        + """] ("""
-        + of
-        + """-top) ;
-\path ("""
-        + to
-        + """-south)  -- ("""
-        + to
-        + """-north)  coordinate[pos="""
-        + str(pos)
-        + """] ("""
-        + to
-        + """-top) ;
-\draw [copyconnection]  ("""
-        + of
-        + """-northeast)
--- node {\copymidarrow}("""
-        + of
-        + """-top)
--- node {\copymidarrow}("""
-        + to
-        + """-top)
--- node {\copymidarrow} ("""
-        + to
-        + """-north);
+    return rf"""
+\path ({of}-southeast) -- ({of}-northeast) coordinate[pos={pos}] ({of}-top);
+\path ({to}-south) -- ({to}-north) coordinate[pos={pos}] ({to}-top);
+\draw [copyconnection]  ({of}-northeast)
+    -- node {{\copymidarrow}} ({of}-top)
+    -- node {{\copymidarrow}} ({to}-top)
+    -- node {{\copymidarrow}} ({to}-north);
 """
-    )
 
 
 def to_end():
@@ -796,9 +587,9 @@ def to_end():
     str
         LaTeX code to end the TikZ environment.
     """
-    return r"""
-\end{tikzpicture}
-\end{document}
+    return rf"""
+\end{{tikzpicture}}
+\end{{document}}
 """
 
 
@@ -860,35 +651,17 @@ def to_FullyConnected(
     str
         LaTeX code for the fully connected layer.
     """
-    return (
-        r"""
-\pic[shift={ """
-        + offset
-        + """ }] at """
-        + to
-        + """
-    {Box={
-        name="""
-        + name
-        + """,
-        caption="""
-        + caption
-        + """,
+    return rf"""
+\pic[shift={offset}] at {to} {{
+    Box={{
+        name={name},
+        caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel="""
-        + str(s_filer)
-        + """,
+        zlabel={s_filer},
         fill=\FcColor,
-        height="""
-        + str(height)
-        + """,
-        width="""
-        + str(width)
-        + """,
-        depth="""
-        + str(depth)
-        + """
-        }
-    };
+        height={height},
+        width={width},
+        depth={depth}
+    }}
+}};
 """
-    )
