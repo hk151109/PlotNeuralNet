@@ -105,8 +105,8 @@ def ToInput(pathFile, to="(-3,0,0)", width=8, height=8, name="temp"):
 
 def ToConv(
     name,
-    sFiler=256,
-    nFiler=64,
+    sFilter=256,
+    nFilter=64,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -121,9 +121,9 @@ def ToConv(
     ----------
     name : str
         Name of the layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 256.
-    nFiler : int, optional
+    nFilter : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -148,8 +148,8 @@ def ToConv(
     Box={{
         name={name},
         caption={caption},
-        xlabel={{ {nFiler}, }},
-        zlabel={sFiler},
+        xlabel={{ {nFilter}, }},
+        zlabel={sFilter},
         fill=\ConvColor,
         height={height},
         width={width},
@@ -161,8 +161,8 @@ def ToConv(
 
 def ToConvConvRelu(
     name,
-    sFiler=256,
-    nFiler=(64, 64),
+    sFilter=256,
+    nFilter=(64, 64),
     offset="(0,0,0)",
     to="(0,0,0)",
     width=(2, 2),
@@ -177,9 +177,9 @@ def ToConvConvRelu(
     ----------
     name : str
         Name of the layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 256.
-    nFiler : tuple of int, optional
+    nFilter : tuple of int, optional
         Number of filters, by default (64, 64).
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -204,8 +204,8 @@ def ToConvConvRelu(
     RightBandedBox={{
         name={name},
         caption={caption},
-        xlabel={{ {nFiler[0]}, {nFiler[1]} }},
-        zlabel={sFiler},
+        xlabel={{ {nFilter[0]}, {nFilter[1]} }},
+        zlabel={sFilter},
         fill=\ConvColor,
         bandfill=\ConvReluColor,
         height={height},
@@ -322,8 +322,8 @@ def ToUnPool(
 
 def ToConvRes(
     name,
-    sFiler=256,
-    nFiler=64,
+    sFilter=256,
+    nFilter=64,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=6,
@@ -339,9 +339,9 @@ def ToConvRes(
     ----------
     name : str
         Name of the residual layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 256.
-    nFiler : int, optional
+    nFilter : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -368,8 +368,8 @@ def ToConvRes(
     RightBandedBox={{
         name={name},
         caption={caption},
-        xlabel={{ {nFiler}, }},
-        zlabel={sFiler},
+        xlabel={{ {nFilter}, }},
+        zlabel={sFilter},
         fill={{rgb:white,1;black,3}},
         bandfill={{rgb:white,1;black,2}},
         opacity={opacity},
@@ -383,7 +383,7 @@ def ToConvRes(
 
 def ToConvSoftMax(
     name,
-    sFiler=40,
+    sFilter=40,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -398,7 +398,7 @@ def ToConvSoftMax(
     ----------
     name : str
         Name of the softmax layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 40.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -423,7 +423,7 @@ def ToConvSoftMax(
     Box={{
         name={name},
         caption={caption},
-        zlabel={sFiler},
+        zlabel={sFilter},
         fill=\SoftmaxColor,
         height={height},
         width={width},
@@ -435,7 +435,7 @@ def ToConvSoftMax(
 
 def ToSoftMax(
     name,
-    sFiler=10,
+    sFilter=10,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1.5,
@@ -451,7 +451,7 @@ def ToSoftMax(
     ----------
     name : str
         Name of the softmax layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 10.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -479,7 +479,7 @@ def ToSoftMax(
         name={name},
         caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel={sFiler},
+        zlabel={sFilter},
         fill=\SoftmaxColor,
         opacity={opacity},
         height={height},
@@ -616,7 +616,7 @@ def ToGenerate(arch, pathname="file.tex"):
 
 def ToFullyConnected(
     name,
-    sFiler=256,
+    sFilter=256,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -631,7 +631,7 @@ def ToFullyConnected(
     ----------
     name : str
         Name of the fully connected layer.
-    sFiler : int, optional
+    sFilter : int, optional
         Size of the filter, by default 256.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -657,7 +657,7 @@ def ToFullyConnected(
         name={name},
         caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel={sFiler},
+        zlabel={sFilter},
         fill=\FcColor,
         height={height},
         width={width},
