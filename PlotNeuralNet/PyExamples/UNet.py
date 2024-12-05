@@ -1,28 +1,28 @@
 import sys
 
-from PlotNeuralNet.pycore.blocks import block_2ConvPool, block_Res, block_Unconv
-from PlotNeuralNet.pycore.tikzeng import (
-    to_begin,
-    to_connection,
-    to_ConvConvRelu,
-    to_ConvSoftMax,
-    to_cor,
-    to_end,
-    to_generate,
-    to_head,
-    to_input,
-    to_Pool,
-    to_skip,
+from PlotNeuralNet.PyCore.Blocks import Block2ConvPool, BlockRes, BlockUnconv
+from PlotNeuralNet.PyCore.TikzGen import (
+    ToBegin,
+    ToConnection,
+    ToConvConvRelu,
+    ToConvSoftMax,
+    ToCor,
+    ToEnd,
+    ToGenerate,
+    ToHead,
+    ToInput,
+    ToPool,
+    ToSkip,
 )
 
 arch = [
-    to_head(".."),
-    to_cor(),
-    to_begin(),
+    ToHead(".."),
+    ToCor(),
+    ToBegin(),
     # input
-    to_input("../examples/fcn8s/cats.jpg"),
+    ToInput("../examples/fcn8s/cats.jpg"),
     # block-001
-    to_ConvConvRelu(
+    ToConvConvRelu(
         name="ccr_b1",
         s_filer=500,
         n_filer=(64, 64),
@@ -32,7 +32,7 @@ arch = [
         height=40,
         depth=40,
     ),
-    to_Pool(
+    ToPool(
         name="pool_b1",
         offset="(0,0,0)",
         to="(ccr_b1-east)",
@@ -41,7 +41,7 @@ arch = [
         depth=32,
         opacity=0.5,
     ),
-    *block_2ConvPool(
+    *Block2ConvPool(
         name="b2",
         botton="pool_b1",
         top="pool_b2",
@@ -51,7 +51,7 @@ arch = [
         size=(32, 32, 3.5),
         opacity=0.5,
     ),
-    *block_2ConvPool(
+    *Block2ConvPool(
         name="b3",
         botton="pool_b2",
         top="pool_b3",
@@ -61,7 +61,7 @@ arch = [
         size=(25, 25, 4.5),
         opacity=0.5,
     ),
-    *block_2ConvPool(
+    *Block2ConvPool(
         name="b4",
         botton="pool_b3",
         top="pool_b4",
@@ -73,7 +73,7 @@ arch = [
     ),
     # Bottleneck
     # block-005
-    to_ConvConvRelu(
+    ToConvConvRelu(
         name="ccr_b5",
         s_filer=32,
         n_filer=(1024, 1024),
@@ -84,9 +84,9 @@ arch = [
         depth=8,
         caption="Bottleneck",
     ),
-    to_connection("pool_b4", "ccr_b5"),
+    ToConnection("pool_b4", "ccr_b5"),
     # Decoder
-    *block_Unconv(
+    *BlockUnconv(
         name="b6",
         botton="ccr_b5",
         top="end_b6",
@@ -96,8 +96,8 @@ arch = [
         size=(16, 16, 5.0),
         opacity=0.5,
     ),
-    to_skip(of="ccr_b4", to="ccr_res_b6", pos=1.25),
-    *block_Unconv(
+    ToSkip(of="ccr_b4", to="ccr_res_b6", pos=1.25),
+    *BlockUnconv(
         name="b7",
         botton="end_b6",
         top="end_b7",
@@ -107,8 +107,8 @@ arch = [
         size=(25, 25, 4.5),
         opacity=0.5,
     ),
-    to_skip(of="ccr_b3", to="ccr_res_b7", pos=1.25),
-    *block_Unconv(
+    ToSkip(of="ccr_b3", to="ccr_res_b7", pos=1.25),
+    *BlockUnconv(
         name="b8",
         botton="end_b7",
         top="end_b8",
@@ -118,8 +118,8 @@ arch = [
         size=(32, 32, 3.5),
         opacity=0.5,
     ),
-    to_skip(of="ccr_b2", to="ccr_res_b8", pos=1.25),
-    *block_Unconv(
+    ToSkip(of="ccr_b2", to="ccr_res_b8", pos=1.25),
+    *BlockUnconv(
         name="b9",
         botton="end_b8",
         top="end_b9",
@@ -129,8 +129,8 @@ arch = [
         size=(40, 40, 2.5),
         opacity=0.5,
     ),
-    to_skip(of="ccr_b1", to="ccr_res_b9", pos=1.25),
-    to_ConvSoftMax(
+    ToSkip(of="ccr_b1", to="ccr_res_b9", pos=1.25),
+    ToConvSoftMax(
         name="soft1",
         s_filer=512,
         offset="(0.75,0,0)",
@@ -140,12 +140,12 @@ arch = [
         depth=40,
         caption="SOFT",
     ),
-    to_connection("end_b9", "soft1"),
-    to_end(),
+    ToConnection("end_b9", "soft1"),
+    ToEnd(),
 ]
 
 
-def main():
+def Main():
     """
     Generate the LaTeX file for the U-Net architecture diagram.
 
@@ -157,10 +157,10 @@ def main():
     -------
     None
     """
-    namefile = str(sys.argv[0]).split(".")[0]
-    to_generate(arch, namefile + ".tex")
+    nameFile = str(sys.argv[0]).split(".")[0]
+    ToGenerate(arch, nameFile + ".tex")
 
 
 if __name__ == "__main__":
 
-    main()
+    Main()

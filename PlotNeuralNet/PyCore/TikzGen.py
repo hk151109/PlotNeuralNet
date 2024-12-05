@@ -1,13 +1,13 @@
 import os
 
 
-def to_head(projectpath):
+def ToHead(projectPath):
     """
     Generate the LaTeX header for the TikZ diagram.
 
     Parameters
     ----------
-    projectpath : str
+    projectPath : str
         The path to the project directory.
 
     Returns
@@ -15,17 +15,17 @@ def to_head(projectpath):
     str
         LaTeX code for the document header.
     """
-    pathlayers = os.path.join(projectpath, "layers/").replace("\\", "/")
+    pathLayers = os.path.join(projectPath, "layers/").replace("\\", "/")
     return rf"""
 \documentclass[border=8pt, multi, tikz]{{standalone}}
 \usepackage{{import}}
-\subimport{{{pathlayers}}}{{init}}
+\subimport{{{pathLayers}}}{{init}}
 \usetikzlibrary{{positioning}}
 \usetikzlibrary{{3d}} %for including external image
 """
 
 
-def to_cor():
+def ToCor():
     """
     Define color schemes for different layers.
 
@@ -50,7 +50,7 @@ def to_cor():
 """
 
 
-def to_begin():
+def ToBegin():
     """
     Initialize the TikZ picture environment.
 
@@ -76,13 +76,13 @@ def to_begin():
 # Layers definition
 
 
-def to_input(pathfile, to="(-3,0,0)", width=8, height=8, name="temp"):
+def ToInput(pathFile, to="(-3,0,0)", width=8, height=8, name="temp"):
     """
     Create an input node with an image.
 
     Parameters
     ----------
-    pathfile : str
+    pathFile : str
         Path to the input image file.
     to : str, optional
         Position coordinate, by default "(-3,0,0)".
@@ -99,14 +99,14 @@ def to_input(pathfile, to="(-3,0,0)", width=8, height=8, name="temp"):
         LaTeX code for the input node.
     """
     return rf"""
-\node[canvas is zy plane at x=0] ({name}) at {to} {{\includegraphics[width={width}cm,height={height}cm]{{{pathfile}}}}};
+\node[canvas is zy plane at x=0] ({name}) at {to} {{\includegraphics[width={width}cm,height={height}cm]{{{pathFile}}}}};
 """
 
 
-def to_Conv(
+def ToConv(
     name,
-    s_filer=256,
-    n_filer=64,
+    sFiler=256,
+    nFiler=64,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -121,9 +121,9 @@ def to_Conv(
     ----------
     name : str
         Name of the layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : int, optional
+    nFiler : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -148,8 +148,8 @@ def to_Conv(
     Box={{
         name={name},
         caption={caption},
-        xlabel={{ {n_filer}, }},
-        zlabel={s_filer},
+        xlabel={{ {nFiler}, }},
+        zlabel={sFiler},
         fill=\ConvColor,
         height={height},
         width={width},
@@ -159,10 +159,10 @@ def to_Conv(
 """
 
 
-def to_ConvConvRelu(
+def ToConvConvRelu(
     name,
-    s_filer=256,
-    n_filer=(64, 64),
+    sFiler=256,
+    nFiler=(64, 64),
     offset="(0,0,0)",
     to="(0,0,0)",
     width=(2, 2),
@@ -177,9 +177,9 @@ def to_ConvConvRelu(
     ----------
     name : str
         Name of the layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : tuple of int, optional
+    nFiler : tuple of int, optional
         Number of filters, by default (64, 64).
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -204,8 +204,8 @@ def to_ConvConvRelu(
     RightBandedBox={{
         name={name},
         caption={caption},
-        xlabel={{ {n_filer[0]}, {n_filer[1]} }},
-        zlabel={s_filer},
+        xlabel={{ {nFiler[0]}, {nFiler[1]} }},
+        zlabel={sFiler},
         fill=\ConvColor,
         bandfill=\ConvReluColor,
         height={height},
@@ -216,7 +216,7 @@ def to_ConvConvRelu(
 """
 
 
-def to_Pool(
+def ToPool(
     name,
     offset="(0,0,0)",
     to="(0,0,0)",
@@ -322,8 +322,8 @@ def to_UnPool(
 
 def to_ConvRes(
     name,
-    s_filer=256,
-    n_filer=64,
+    sFiler=256,
+    nFiler=64,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=6,
@@ -339,9 +339,9 @@ def to_ConvRes(
     ----------
     name : str
         Name of the residual layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : int, optional
+    nFiler : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -368,8 +368,8 @@ def to_ConvRes(
     RightBandedBox={{
         name={name},
         caption={caption},
-        xlabel={{ {n_filer}, }},
-        zlabel={s_filer},
+        xlabel={{ {nFiler}, }},
+        zlabel={sFiler},
         fill={{rgb:white,1;black,3}},
         bandfill={{rgb:white,1;black,2}},
         opacity={opacity},
@@ -383,7 +383,7 @@ def to_ConvRes(
 
 def to_ConvSoftMax(
     name,
-    s_filer=40,
+    sFiler=40,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -398,7 +398,7 @@ def to_ConvSoftMax(
     ----------
     name : str
         Name of the softmax layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 40.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -423,7 +423,7 @@ def to_ConvSoftMax(
     Box={{
         name={name},
         caption={caption},
-        zlabel={s_filer},
+        zlabel={sFiler},
         fill=\SoftmaxColor,
         height={height},
         width={width},
@@ -433,9 +433,9 @@ def to_ConvSoftMax(
 """
 
 
-def to_SoftMax(
+def ToSoftMax(
     name,
-    s_filer=10,
+    sFiler=10,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1.5,
@@ -451,7 +451,7 @@ def to_SoftMax(
     ----------
     name : str
         Name of the softmax layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 10.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -479,7 +479,7 @@ def to_SoftMax(
         name={name},
         caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel={s_filer},
+        zlabel={sFiler},
         fill=\SoftmaxColor,
         opacity={opacity},
         height={height},
@@ -490,7 +490,7 @@ def to_SoftMax(
 """
 
 
-def to_Sum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+def ToSum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
     """
     Create a summation node.
 
@@ -525,7 +525,7 @@ def to_Sum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
 """
 
 
-def to_connection(of, to):
+def ToConnection(of, to):
     """
     Draw a connection between two nodes.
 
@@ -546,7 +546,7 @@ def to_connection(of, to):
 """
 
 
-def to_skip(of, to, pos=1.25):
+def ToSkip(of, to, pos=1.25):
     """
     Create a skip connection between two nodes.
 
@@ -574,7 +574,7 @@ def to_skip(of, to, pos=1.25):
 """
 
 
-def to_end():
+def ToEnd():
     """
     End the TikZ picture environment.
 
@@ -593,7 +593,7 @@ def to_end():
 """
 
 
-def to_generate(arch, pathname="file.tex"):
+def ToGenerate(arch, pathname="file.tex"):
     """
     Generate the LaTeX file from the architecture list.
 
@@ -614,9 +614,9 @@ def to_generate(arch, pathname="file.tex"):
             f.write(c)
 
 
-def to_FullyConnected(
+def ToFullyConnected(
     name,
-    s_filer=256,
+    sFiler=256,
     offset="(0,0,0)",
     to="(0,0,0)",
     width=1,
@@ -631,7 +631,7 @@ def to_FullyConnected(
     ----------
     name : str
         Name of the fully connected layer.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -657,7 +657,7 @@ def to_FullyConnected(
         name={name},
         caption={caption},
         xlabel={{" ","dummy"}},
-        zlabel={s_filer},
+        zlabel={sFiler},
         fill=\FcColor,
         height={height},
         width={width},

@@ -1,9 +1,11 @@
-from PlotNeuralNet.Examples import exampleFiles
-from PlotNeuralNet.Layers import layerFiles
-from PlotNeuralNet.PyCore import (
-    Block2ConvPool,
-    BlockRes,
-    BlockUnconv,
+"""
+PyCore submodule.
+
+Core functionalities for PlotNeuralNet, including TikZ primitives and block definitions.
+"""
+
+from .Blocks import Block2ConvPool, BlockRes, BlockUnconv
+from .TikzGen import (
     ToBegin,
     ToConnection,
     ToConv,
@@ -22,14 +24,11 @@ from PlotNeuralNet.PyCore import (
     ToSum,
     ToUnPool,
 )
-from PlotNeuralNet.PyExamples import TestSimpleMain, UnetMain
 
 __all__ = [
-    "exampleFiles",
-    "layerFiles",
     "Block2ConvPool",
-    "BlockUnconv",
     "BlockRes",
+    "BlockUnconv",
     "ToBegin",
     "ToConnection",
     "ToConv",
@@ -47,6 +46,4 @@ __all__ = [
     "ToSoftMax",
     "ToSum",
     "ToUnPool",
-    "UnetMain",
-    "TestSimpleMain",
 ]

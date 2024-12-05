@@ -1,13 +1,13 @@
-from .tikzeng import *
+from .TikzGen import *
 
 
 # define new block
-def block_2ConvPool(
+def Block2ConvPool(
     name,
     botton,
     top,
-    s_filer=256,
-    n_filer=64,
+    sFiler=256,
+    nFiler=64,
     offset="(1,0,0)",
     size=(32, 32, 3.5),
     opacity=0.5,
@@ -23,9 +23,9 @@ def block_2ConvPool(
         The node from which the block starts.
     top : str
         The node where the block ends.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : int, optional
+    nFiler : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(1,0,0)".
@@ -40,17 +40,17 @@ def block_2ConvPool(
         LaTeX code for the convolutional and pooling layers.
     """
     return [
-        to_ConvConvRelu(
+        ToConvConvRelu(
             name=f"ccr_{name}",
-            s_filer=str(s_filer),
-            n_filer=(n_filer, n_filer),
+            sFiler=str(sFiler),
+            nFiler=(nFiler, nFiler),
             offset=offset,
             to=f"({botton}-east)",
             width=(size[2], size[2]),
             height=size[0],
             depth=size[1],
         ),
-        to_Pool(
+        ToPool(
             name=f"{top}",
             offset="(0,0,0)",
             to=f"(ccr_{name}-east)",
@@ -59,16 +59,16 @@ def block_2ConvPool(
             depth=size[1] - int(size[0] / 4),
             opacity=opacity,
         ),
-        to_connection(f"{botton}", f"ccr_{name}"),
+        ToConnection(f"{botton}", f"ccr_{name}"),
     ]
 
 
-def block_Unconv(
+def BlockUnconv(
     name,
     botton,
     top,
-    s_filer=256,
-    n_filer=64,
+    sFiler=256,
+    nFiler=64,
     offset="(1,0,0)",
     size=(32, 32, 3.5),
     opacity=0.5,
@@ -84,9 +84,9 @@ def block_Unconv(
         The node from which the block starts.
     top : str
         The node where the block ends.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : int, optional
+    nFiler : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(1,0,0)".
@@ -101,7 +101,7 @@ def block_Unconv(
         LaTeX code for the unpooling and convolutional layers.
     """
     return [
-        to_UnPool(
+        ToUnPool(
             name=f"unpool_{name}",
             offset=offset,
             to=f"({botton}-east)",
@@ -110,59 +110,59 @@ def block_Unconv(
             depth=size[1],
             opacity=opacity,
         ),
-        to_ConvRes(
+        ToConvRes(
             name=f"ccr_res_{name}",
             offset="(0,0,0)",
             to=f"(unpool_{name}-east)",
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            sFiler=str(sFiler),
+            nFiler=str(nFiler),
             width=size[2],
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
-        to_Conv(
+        ToConv(
             name=f"ccr_{name}",
             offset="(0,0,0)",
             to=f"(ccr_res_{name}-east)",
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            sFiler=str(sFiler),
+            nFiler=str(nFiler),
             width=size[2],
             height=size[0],
             depth=size[1],
         ),
-        to_ConvRes(
+        ToConvRes(
             name=f"ccr_res_c_{name}",
             offset="(0,0,0)",
             to=f"(ccr_{name}-east)",
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            sFiler=str(sFiler),
+            nFiler=str(nFiler),
             width=size[2],
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
-        to_Conv(
+        ToConv(
             name=f"{top}",
             offset="(0,0,0)",
             to=f"(ccr_res_c_{name}-east)",
-            s_filer=str(s_filer),
-            n_filer=str(n_filer),
+            sFiler=str(sFiler),
+            nFiler=str(nFiler),
             width=size[2],
             height=size[0],
             depth=size[1],
         ),
-        to_connection(f"{botton}", f"unpool_{name}"),
+        ToConnection(f"{botton}", f"unpool_{name}"),
     ]
 
 
-def block_Res(
+def BlockRes(
     num,
     name,
     botton,
     top,
-    s_filer=256,
-    n_filer=64,
+    sFiler=256,
+    nFiler=64,
     offset="(0,0,0)",
     size=(32, 32, 3.5),
     opacity=0.5,
@@ -180,9 +180,9 @@ def block_Res(
         The node from which the block starts.
     top : str
         The node where the block ends.
-    s_filer : int, optional
+    sFiler : int, optional
         Size of the filter, by default 256.
-    n_filer : int, optional
+    nFiler : int, optional
         Number of filters, by default 64.
     offset : str, optional
         Position offset, by default "(0,0,0)".
@@ -198,24 +198,24 @@ def block_Res(
     """
     lys = []
     layers = [f"{name}_{i}" for i in range(num - 1)] + [top]
-    for layer_name in layers:
+    for layerName in layers:
         ly = [
-            to_Conv(
-                name=f"{layer_name}",
+            ToConv(
+                name=f"{layerName}",
                 offset=offset,
                 to=f"({botton}-east)",
-                s_filer=str(s_filer),
-                n_filer=str(n_filer),
+                sFiler=str(sFiler),
+                nFiler=str(nFiler),
                 width=size[2],
                 height=size[0],
                 depth=size[1],
             ),
-            to_connection(f"{botton}", f"{layer_name}"),
+            ToConnection(f"{botton}", f"{layerName}"),
         ]
-        botton = layer_name
+        botton = layerName
         lys += ly
 
     lys += [
-        to_skip(of=layers[1], to=layers[-2], pos=1.25),
+        ToSkip(of=layers[1], to=layers[-2], pos=1.25),
     ]
     return lys
