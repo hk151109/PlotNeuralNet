@@ -2,7 +2,7 @@
 \usepackage{import}
 \subimport{../../layers/}{init}
 \usetikzlibrary{positioning}
-\usetikzlibrary{3d} %for including external image 
+\usetikzlibrary{3d} %for including external image
 
 \def\ConvColor{rgb:yellow,5;red,2.5;white,5}
 \def\ConvReluColor{rgb:yellow,5;red,5;white,5}
@@ -17,7 +17,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Draw Layer Blocks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\node[canvas is zy plane at x=0] (temp) at (-3,0,0) {\includegraphics[width=8cm,height=8cm]{cats.jpg}};
+\node[canvas is zy plane at x=0] (temp) at (-3,0,0) {\includegraphics[width=8cm,height=8cm]{UMichOSUTaunt.jpeg}};
 % conv1_1,conv1_2,%pool1
 \pic[shift={(0,0,0)}] at (0,0,0) {RightBandedBox={name=cr1,caption=conv1,%
         xlabel={{"64","64"}},zlabel=I,fill=\ConvColor,bandfill=\ConvReluColor,%
@@ -47,11 +47,11 @@
         xlabel={{"512","512","512"}},zlabel=I/16,fill=\ConvColor,bandfill=\ConvReluColor,%
         height=15,width={7,7,7},depth=15}};
 \pic[shift={(0,0,0)}] at (cr5-east) {Box={name=p5,%
-        fill=\PoolColor,opacity=0.5,height=10,width=1,depth=10}};    
+        fill=\PoolColor,opacity=0.5,height=10,width=1,depth=10}};
 %% fc6, fc7 -> cr6, cr7
 \pic[shift={(1,0,0)}] at (p5-east) {RightBandedBox={name=cr6_7,caption=fc to conv,%
         xlabel={{"4096","4096"}},fill=\ConvColor,bandfill=\ConvReluColor,%
-        height=10,width={10,10},depth=10}};  
+        height=10,width={10,10},depth=10}};
 %% fc8 -> cr8 (score32)
 \pic[shift={(1,0,0)}] at (cr6_7-east) {Box={name=score32,caption=fc8 to conv,%
         xlabel={{"K","dummy"}},fill=\ConvColor,%
@@ -59,10 +59,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Joining with previous streams (fcn-16s)
 %% Upsampling Deconv Layer
-%% Dcnv32    
+%% Dcnv32
 \pic[shift={(1.5,0,0)}] at (score32-east) {Box={name=d32,%
         xlabel={{"K","dummy"}},fill=\DcnvColor,%
-        height=15,width=2,depth=15,zlabel=I/16}};  
+        height=15,width=2,depth=15,zlabel=I/16}};
 %% score16
 \pic[shift={(0,-4,0)}] at (d32-west) {Box={name=score16,%
             xlabel={{"K","dummy"}},fill=\ConvColor,%
@@ -74,10 +74,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Joining with previous streams (fcn-8s)
 %% Upsampling Deconv Layer
-%% Dcnv16    
+%% Dcnv16
 \pic[shift={(1.5,0,0)}] at (elt1-east) {Box={name=d16,%
         xlabel={{"K","dummy"}},fill=\DcnvColor,%
-        height=23,width=2,depth=23,zlabel=I/8}};  
+        height=23,width=2,depth=23,zlabel=I/8}};
 %% score8
 \pic[shift={(0,-6,0)}] at (d16-west) {Box={name=score8,%
         xlabel={{"K","dummy"}},fill=\ConvColor,%
@@ -86,18 +86,18 @@
 \pic[shift={(1.5,0,0)}] at (d16-east) {Ball={name=elt2,%
         fill=\SumColor,opacity=0.6,%
         radius=2.5,logo=$+$}};
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Output
-%%%%%%%%%%   
-%% Dcnv8    
+%%%%%%%%%%
+%% Dcnv8
 \pic[shift={(2.5,0,0)}] at (elt2-east) {Box={name=d8,%
         xlabel={{"K","dummy"}},fill=\DcnvColor,%
-        height=40,width=2,depth=40}}; 
-%%%%%%%%%%   
-%% softmax    
+        height=40,width=2,depth=40}};
+%%%%%%%%%%
+%% softmax
 \pic[shift={(1,0,0)}] at (d8-east) {Box={name=softmax,caption=softmax,%
         xlabel={{"K","dummy"}},fill=\SoftmaxColor,%
-        height=40,width=2,depth=40,zlabel=I}}; 
+        height=40,width=2,depth=40,zlabel=I}};
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Draw connections
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

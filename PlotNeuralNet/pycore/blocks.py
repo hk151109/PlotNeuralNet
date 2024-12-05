@@ -41,25 +41,25 @@ def block_2ConvPool(
     """
     return [
         to_ConvConvRelu(
-            name="ccr_{}".format(name),
+            name=f"ccr_{name}",
             s_filer=str(s_filer),
             n_filer=(n_filer, n_filer),
             offset=offset,
-            to="({}-east)".format(botton),
+            to=f"({botton}-east)",
             width=(size[2], size[2]),
             height=size[0],
             depth=size[1],
         ),
         to_Pool(
-            name="{}".format(top),
+            name=f"{top}",
             offset="(0,0,0)",
-            to="(ccr_{}-east)".format(name),
+            to=f"(ccr_{name}-east)",
             width=1,
             height=size[0] - int(size[0] / 4),
             depth=size[1] - int(size[0] / 4),
             opacity=opacity,
         ),
-        to_connection("{}".format(botton), "ccr_{}".format(name)),
+        to_connection(f"{botton}", f"ccr_{name}"),
     ]
 
 
@@ -102,18 +102,18 @@ def block_Unconv(
     """
     return [
         to_UnPool(
-            name="unpool_{}".format(name),
+            name=f"unpool_{name}",
             offset=offset,
-            to="({}-east)".format(botton),
+            to=f"({botton}-east)",
             width=1,
             height=size[0],
             depth=size[1],
             opacity=opacity,
         ),
         to_ConvRes(
-            name="ccr_res_{}".format(name),
+            name=f"ccr_res_{name}",
             offset="(0,0,0)",
-            to="(unpool_{}-east)".format(name),
+            to=f"(unpool_{name}-east)",
             s_filer=str(s_filer),
             n_filer=str(n_filer),
             width=size[2],
@@ -122,9 +122,9 @@ def block_Unconv(
             opacity=opacity,
         ),
         to_Conv(
-            name="ccr_{}".format(name),
+            name=f"ccr_{name}",
             offset="(0,0,0)",
-            to="(ccr_res_{}-east)".format(name),
+            to=f"(ccr_res_{name}-east)",
             s_filer=str(s_filer),
             n_filer=str(n_filer),
             width=size[2],
@@ -132,9 +132,9 @@ def block_Unconv(
             depth=size[1],
         ),
         to_ConvRes(
-            name="ccr_res_c_{}".format(name),
+            name=f"ccr_res_c_{name}",
             offset="(0,0,0)",
-            to="(ccr_{}-east)".format(name),
+            to=f"(ccr_{name}-east)",
             s_filer=str(s_filer),
             n_filer=str(n_filer),
             width=size[2],
@@ -143,16 +143,16 @@ def block_Unconv(
             opacity=opacity,
         ),
         to_Conv(
-            name="{}".format(top),
+            name=f"{top}",
             offset="(0,0,0)",
-            to="(ccr_res_c_{}-east)".format(name),
+            to=f"(ccr_res_c_{name}-east)",
             s_filer=str(s_filer),
             n_filer=str(n_filer),
             width=size[2],
             height=size[0],
             depth=size[1],
         ),
-        to_connection("{}".format(botton), "unpool_{}".format(name)),
+        to_connection(f"{botton}", f"unpool_{name}"),
     ]
 
 
@@ -201,16 +201,16 @@ def block_Res(
     for name in layers:
         ly = [
             to_Conv(
-                name="{}".format(name),
+                name=f"{name}",
                 offset=offset,
-                to="({}-east)".format(botton),
+                to=f"({botton}-east)",
                 s_filer=str(s_filer),
                 n_filer=str(n_filer),
                 width=size[2],
                 height=size[0],
                 depth=size[1],
             ),
-            to_connection("{}".format(botton), "{}".format(name)),
+            to_connection(f"{botton}", f"{name}"),
         ]
         botton = name
         lys += ly
