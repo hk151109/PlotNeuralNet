@@ -5,15 +5,6 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{3d} %for including external image
 
-\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
-\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
-\def\PoolColor{rgb:red,1;black,0.3}
-\def\UnpoolColor{rgb:blue,2;green,1;black,0.3}
-\def\FcColor{rgb:blue,5;red,2.5;white,5}
-\def\FcReluColor{rgb:blue,5;red,5;white,4}
-\def\SoftmaxColor{rgb:magenta,5;black,7}
-\def\SumColor{rgb:blue,5;green,15}
-
 \newcommand{\copymidarrow}{\tikz \draw[-Stealth,line width=0.8mm,draw={rgb:blue,4;red,1;green,1;black,3}] (-0.3,0) -- ++(0.3,0);}
 
 \begin{document}
@@ -25,7 +16,7 @@
     Box={
         name=conv1,
         caption=7x7 Conv,
-        xlabel={ 64, },
+        xlabel={64},
         zlabel=64,
         fill=\ConvColor,
         height=80,
@@ -33,6 +24,7 @@
         depth=80
     }
 };
+
 
 \pic[shift={(1,0,0)}] at (conv1-east) {
     Box={
