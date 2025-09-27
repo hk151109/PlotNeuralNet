@@ -6,8 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "PlotNeuralNet"
 version = "0.1.0"
 description = "Visualize neural networks with a focus on easy-to-use diagrams."
-readme = "README.md"
-readme-content-type = "text/markdown"
+readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     {name = "Kaden Gruizenga", email = "kgruiz@umich.edu"}
 ]
@@ -22,4 +21,4 @@ dependencies = []  # Add runtime dependencies if needed
 
 [project.urls]
 Source = "https://github.com/kgruiz/PlotNeuralNet"
-Original Work = "https://github.com/HarisIqbal88/PlotNeuralNet"
+Original_Work = "https://github.com/HarisIqbal88/PlotNeuralNet"
