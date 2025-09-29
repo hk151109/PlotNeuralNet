@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.26)  27 SEP 2025 18:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.26)  27 SEP 2025 18:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./resnet50.tex
-(resnet50.tex
+**./myarch.tex
+(myarch.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 
@@ -447,8 +447,8 @@ tex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count285
 \l__pdf_internal_box=\box63
-) (resnet50.aux)
-\openout1 = `resnet50.aux'.
+) (myarch.aux)
+\openout1 = `myarch.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
@@ -490,212 +490,32 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 47--47
- [][][]\OT1/cmr/bx/n/10 3x3 
- []
-
-
-Overfull \hbox (11.40979pt too wide) in paragraph at lines 47--47
- \OT1/cmr/bx/n/10 Max- 
- []
-
-
-Overfull \hbox (7.55566pt too wide) in paragraph at lines 47--47
- \OT1/cmr/bx/n/10 Pool[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 60--60
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 86--86
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 103--103
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 129--129
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 146--146
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 172--172
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 189--189
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 215--215
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 232--232
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 258--258
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 275--275
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 301--301
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 318--318
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 344--344
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 361--361
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 387--387
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 404--404
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 430--430
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 447--447
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 473--473
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 490--490
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 516--516
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 533--533
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 559--559
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 576--576
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 602--602
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 619--619
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 645--645
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 662--662
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 688--688
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 705--705
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (2.56958pt too wide) in paragraph at lines 731--731
- [][][]\OT1/cmr/bx/n/10 1x1[] 
- []
-
-
-Overfull \hbox (28.06944pt too wide) in paragraph at lines 747--747
- [][][]\OT1/cmr/bx/n/10 AvgPool[] 
- []
-
-
-Overfull \hbox (1.45912pt too wide) in paragraph at lines 761--761
- \OT1/cmr/bx/n/10 Soft- 
+Overfull \hbox (7.76463pt too wide) in paragraph at lines 88--88
+ [][][]\OT1/cmr/bx/n/10 SOFT[] 
  []
 
 [1
 
 {C:/Users/gopal/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-(resnet50.aux)
+(myarch.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21617 strings out of 474486
- 556963 string characters out of 5743755
- 2319542 words of memory out of 5000000
- 43681 multiletter control sequences out of 15000+600000
+ 14036 strings out of 474486
+ 303722 string characters out of 5743755
+ 1962542 words of memory out of 5000000
+ 36100 multiletter control sequences out of 15000+600000
  558676 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,11n,121p,414b,1253s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,11n,121p,412b,1251s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/gopal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/gopal/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmr10.pfb><C:/Users/gopal/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/cm/cmr9.pfb>
-Output written on resnet50.pdf (1 page, 48558 bytes).
+Output written on myarch.pdf (1 page, 31389 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
